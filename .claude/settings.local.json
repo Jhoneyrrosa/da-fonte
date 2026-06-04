@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create *)",
+      "Bash(npx create-vite@latest . --template react-ts)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(Get-Process -Name node -ErrorAction SilentlyContinue)",
+      "Bash(Stop-Process -Force)",
+      "Bash(Start-Sleep -Milliseconds 500)",
+      "Bash(Write-Output \"OK\")",
+      "PowerShell(Get-Process -Name node -ErrorAction SilentlyContinue)",
+      "PowerShell(Stop-Process -Force)",
+      "PowerShell(Set-Location \"c:\\\\Users\\\\DISUP\\\\Desktop\\\\da-fonte\"; Start-Process -NoNewWindow -FilePath \"npm\" -ArgumentList \"run\",\"dev\" -RedirectStandardOutput \"$env:TEMP\\\\vite-out.txt\" -RedirectStandardError \"$env:TEMP\\\\vite-err.txt\"; Start-Sleep -Seconds 4; Get-Content \"$env:TEMP\\\\vite-out.txt\",\"$env:TEMP\\\\vite-err.txt\" -ErrorAction SilentlyContinue)"
+    ]
+  }
+}
