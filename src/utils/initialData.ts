@@ -40,8 +40,8 @@ export const initialProducts: Product[] = [
 export const initialClients: Client[] = [
   {
     id: 'DF-0001',
-    username: 'demo',
-    password: 'demo123',
+    username: 'cliente',
+    password: 'dafonte123',
     name: 'João Silva',
     company: 'Salão Beleza Total',
     cnpj: '12.345.678/0001-90',

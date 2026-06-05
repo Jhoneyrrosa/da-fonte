@@ -20,7 +20,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [currentClient, setCurrentClient] = useState<Client | null>(null);
 
   const loginAdmin = useCallback((username: string, password: string): boolean => {
-    if (username === 'admin' && password === 'admin123') {
+    if (username === 'admin' && password === 'dafonte@admin') {
       setIsAdmin(true);
       setIsAuthenticated(true);
       return true;
