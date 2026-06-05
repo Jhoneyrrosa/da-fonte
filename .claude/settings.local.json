@@ -11,7 +11,11 @@
       "Bash(Write-Output \"OK\")",
       "PowerShell(Get-Process -Name node -ErrorAction SilentlyContinue)",
       "PowerShell(Stop-Process -Force)",
-      "PowerShell(Set-Location \"c:\\\\Users\\\\DISUP\\\\Desktop\\\\da-fonte\"; Start-Process -NoNewWindow -FilePath \"npm\" -ArgumentList \"run\",\"dev\" -RedirectStandardOutput \"$env:TEMP\\\\vite-out.txt\" -RedirectStandardError \"$env:TEMP\\\\vite-err.txt\"; Start-Sleep -Seconds 4; Get-Content \"$env:TEMP\\\\vite-out.txt\",\"$env:TEMP\\\\vite-err.txt\" -ErrorAction SilentlyContinue)"
+      "PowerShell(Set-Location \"c:\\\\Users\\\\DISUP\\\\Desktop\\\\da-fonte\"; Start-Process -NoNewWindow -FilePath \"npm\" -ArgumentList \"run\",\"dev\" -RedirectStandardOutput \"$env:TEMP\\\\vite-out.txt\" -RedirectStandardError \"$env:TEMP\\\\vite-err.txt\"; Start-Sleep -Seconds 4; Get-Content \"$env:TEMP\\\\vite-out.txt\",\"$env:TEMP\\\\vite-err.txt\" -ErrorAction SilentlyContinue)",
+      "Bash(git check-ignore *)",
+      "Bash(git rm *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
