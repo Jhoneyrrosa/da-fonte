@@ -26,9 +26,9 @@ const CatalogPage: React.FC = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
 
-      <main className="max-w-5xl mx-auto px-4 py-6">
+      <main className="max-w-5xl mx-auto px-3 sm:px-4 py-3 sm:py-6">
         {/* Search */}
-        <div className="relative mb-5">
+        <div className="relative mb-3 sm:mb-5">
           <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
@@ -42,12 +42,12 @@ const CatalogPage: React.FC = () => {
         </div>
 
         {/* Categories */}
-        <div className="mb-6">
+        <div className="mb-3 sm:mb-6">
           <CategoryFilter selected={selectedCategory} onChange={setSelectedCategory} />
         </div>
 
         {/* Count */}
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-2 sm:mb-4">
           <h2 className="text-gray-700 font-semibold text-sm">
             {selectedCategory === 'Todos' ? 'Todos os produtos' : selectedCategory}
             <span className="ml-2 text-gray-400 font-normal">({filtered.length})</span>
@@ -63,7 +63,7 @@ const CatalogPage: React.FC = () => {
             <p className="font-medium">Nenhum produto encontrado</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-4">
             {filtered.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
