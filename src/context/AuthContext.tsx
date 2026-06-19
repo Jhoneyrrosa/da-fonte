@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { Client } from '../types';
 import { storage } from '../utils/storage';
 
@@ -12,6 +12,12 @@ interface AuthContextType {
   logout: () => void;
 }
 
+const SESSION_KEY = 'df_session';
+
+type Session =
+  | { type: 'admin' }
+  | { type: 'client'; clientId: string };
+
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -19,8 +25,34 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isAdmin, setIsAdmin] = useState(false);
   const [currentClient, setCurrentClient] = useState<Client | null>(null);
 
+  // Restore session on mount
+  useEffect(() => {
+    const raw = localStorage.getItem(SESSION_KEY);
+    if (!raw) return;
+    try {
+      const session: Session = JSON.parse(raw);
+      if (session.type === 'admin') {
+        setIsAdmin(true);
+        setIsAuthenticated(true);
+      } else if (session.type === 'client') {
+        const clients = storage.getClients();
+        const client = clients.find((c) => c.id === session.clientId);
+        if (client && client.active) {
+          setCurrentClient(client);
+          setIsAuthenticated(true);
+          setIsAdmin(false);
+        } else {
+          localStorage.removeItem(SESSION_KEY);
+        }
+      }
+    } catch {
+      localStorage.removeItem(SESSION_KEY);
+    }
+  }, []);
+
   const loginAdmin = useCallback((username: string, password: string): boolean => {
     if (username === 'admin' && password === 'dafonte@admin') {
+      localStorage.setItem(SESSION_KEY, JSON.stringify({ type: 'admin' }));
       setIsAdmin(true);
       setIsAuthenticated(true);
       return true;
@@ -35,6 +67,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!client) return { success: false, error: 'Usuário ou senha incorretos.' };
     if (!client.active) return { success: false, error: 'Seu acesso está bloqueado. Entre em contato com o administrador.' };
 
+    localStorage.setItem(SESSION_KEY, JSON.stringify({ type: 'client', clientId: client.id }));
     setCurrentClient(client);
     setIsAuthenticated(true);
     setIsAdmin(false);
@@ -46,6 +79,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const logout = useCallback(() => {
+    localStorage.removeItem(SESSION_KEY);
     setIsAuthenticated(false);
     setIsAdmin(false);
     setCurrentClient(null);
