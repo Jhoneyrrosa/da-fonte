@@ -51,7 +51,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const loginAdmin = useCallback((username: string, password: string): boolean => {
-    if (username === 'admin' && password === 'dafonte@admin') {
+    if (username.trim() === 'admin' && password.trim() === 'admin123') {
       localStorage.setItem(SESSION_KEY, JSON.stringify({ type: 'admin' }));
       setIsAdmin(true);
       setIsAuthenticated(true);
