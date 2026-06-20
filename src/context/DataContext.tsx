@@ -30,12 +30,14 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const [clients, setClients] = useState<Client[]>(() => {
     const stored = storage.getClients();
-    if (stored.length === 0) {
-      storage.setClients(initialClients);
+    const hasDemo = stored.some((c) => c.username === initialClients[0].username);
+    if (stored.length === 0 || !hasDemo) {
+      const merged = hasDemo ? stored : [...initialClients, ...stored.filter((c) => c.username !== initialClients[0].username)];
+      storage.setClients(merged);
       if (storage.getClientCounter() === 0) {
-        localStorage.setItem('df_counter', '1');
+        localStorage.setItem('df_counter', String(merged.length));
       }
-      return initialClients;
+      return merged;
     }
     return stored;
   });
